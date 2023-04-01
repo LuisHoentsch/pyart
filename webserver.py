@@ -1,4 +1,5 @@
-import re, cv2
+import cv2
+import re
 from flask import Flask, render_template, request, send_file
 
 from image_manipulation import alter_image
