@@ -8,11 +8,23 @@
     <h1>Upload an Image</h1>
     <form action="/upload" method="post" enctype="multipart/form-data">
       <input type="file" name="file"><br>
-      <label for="string1">First (lighter) color in hex:</label>
-      <input type="text" name="string1" id="string1"><br>
-      <label for="string2">Second (darker) color in hex:</label>
-      <input type="text" name="string2" id="string2"><br>
+      <label for="color_picker1">First (lighter) color</label>
+      <input type="color" id="color_picker1" name="color_picker1" value="#ffffff">
+      <br>
+      <label for="color_picker2">Second (darker) color</label>
+      <input type="color" id="color_picker2" name="color_picker2" value="#000000">
+      <br>
       <input type="submit" value="Upload">
     </form>
+
+    {% if result_file %}
+    <hr>
+    <h2>Altered image:</h2>
+    <img src="{{ url_for('static', filename=result_file) }}">
+    <br>
+    <form method="get" action="{{ url_for('download') }}">
+      <button type="submit">Download</button>
+    </form>
+    {% endif %}
   </body>
 </html>

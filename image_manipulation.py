@@ -41,8 +41,7 @@ def alter_image(file, colora, colorb):
     openclose3 = openclose(openclose2, np.ones((4, 4), np.uint8))
     colored = color(openclose3, hex_to_rgb(colora), hex_to_rgb(colorb))
 
-    return cv2.imencode('.png', colored)[1].tobytes()
-
+    return colored
 
 
 '''
