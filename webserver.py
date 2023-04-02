@@ -10,13 +10,14 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return render_template('home.html')
-luis
+
 
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['file']
     colora = request.form['color_picker1'].lower()
     colorb = request.form['color_picker2'].lower()
+    k = int(request.form['quantity'])
     # Check if colors properly specified
     if re.match(r'^#?([0-9a-f]{6})$', colora) is None or re.match(r'^#?([0-9a-f]{6})$', colorb) is None:
         return "Provide color in hex format (e.g. #aa12ff).", 400
@@ -27,7 +28,7 @@ def upload():
     if len(file.read()) > 20 * 1024 * 1024:  # Max file size: 20MB
         return "File is too large. Max file size 20MB.", 400
     file.seek(0)  # Reset file pointer to beginning
-    image = alter_image(file, colora, colorb)
+    image = alter_image(file, colora, colorb, k)
     # Save the result to a temporary file on the server
     result_file = 'result.png'
     cv2.imwrite("./static/" + result_file, image)
@@ -37,7 +38,7 @@ def upload():
 
 @app.route('/download')
 def download():
-    result_file = 'result.png'
+    result_file = 'static/result.png'
     return send_file(result_file, as_attachment=True)
 
 
