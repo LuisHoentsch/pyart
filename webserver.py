@@ -18,6 +18,9 @@ def upload():
     colora = request.form['color_picker1'].lower()
     colorb = request.form['color_picker2'].lower()
     k = int(request.form['quantity'])
+    # Check if k is proper
+    if k not in range(2, 256):
+        return "Pick a number of colors between 2 and 255.", 400
     # Check if colors properly specified
     if re.match(r'^#?([0-9a-f]{6})$', colora) is None or re.match(r'^#?([0-9a-f]{6})$', colorb) is None:
         return "Provide color in hex format (e.g. #aa12ff).", 400
