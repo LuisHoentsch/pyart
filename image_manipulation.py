@@ -33,9 +33,9 @@ def hex_to_rgb(hex_string):
     return tuple(int(hex_string[i:i+2], 16) for i in (0, 2, 4))
 
 
-def alter_image(file, colora, colorb):
+def alter_image(file, colora, colorb, k):
     img = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_GRAYSCALE)
-    q = quantize_cv2(img, 10)
+    q = quantize_cv2(img, k)
     openclose1 = openclose(q, np.ones((2, 2), np.uint8))
     openclose2 = openclose(openclose1, np.ones((3, 3), np.uint8))
     openclose3 = openclose(openclose2, np.ones((4, 4), np.uint8))
